@@ -28,10 +28,23 @@ public class test {
 	}
 
 	@Test
+
+	@Test
 	public void test() {
-		String expectedTitle="Welcome to OpenClinic";
-		String actualResult = driver.findElement(By.xpath("//*[@id=\"content\"]/h1")).getText();
-		
-		assertEquals(expectedTitle,actualResult);
-	}
+		WebElement table = wd.findElement(By.xpath("/html/body/table/tbody/tr[3]/td[2]/table[1]"));
+		List<WebElement> rows = table.findElements(By.tagName("tr"));
+		for (int i = 3; i < rows.size(); i++) {
+			List<WebElement> cols = rows.get(i).findElements(By.tagName("td"));
+			String pinCode1 = cols.get(2).getText();
+			for (int j = i; j < rows.size(); j++) {
+				String pinCode2 = cols.get(2).getText();
+				Assert.assertFalse(pinCode1 == pinCode2); 
+			}
+			System.out.println(i);
+			if (i == 100) {
+				break;
+			}
+		}
+
+	
 	}
